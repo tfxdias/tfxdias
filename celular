@@ -1,0 +1,122 @@
+package Celular;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Celular {
+
+  private int porcentBateria;
+  private int volume;
+	private String modelo;
+	private boolean ligado;
+
+	
+	public Celular() {
+		
+	}
+	public Celular(String modelo, int porcentBateria, boolean ligado, int volume) {
+		super();
+    
+    setporcentBateria(porcentBateria);
+		setModelo(modelo);
+		
+		this.ligado = ligado;
+		setVolume(volume);
+	}
+
+	Scanner sc = new Scanner(System.in);
+ 
+ public void setporcentBateria(int porcentBateria) {
+		if (porcentBateria>=0 && porcentBateria<=100)
+			this.porcentBateria = porcentBateria;
+	}	
+  public int getporcentBateria() {
+		return porcentBateria;
+	}
+  public int getVolume() {
+		return volume;
+	}
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+	public String getModelo() {
+		return modelo;
+	}
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+	
+	public boolean isLigado() {
+		return ligado;
+	}
+	public void setLigado(boolean ligado) {
+		this.ligado = ligado;
+	}
+
+	public void ligar() {
+		if (getporcentBateria()==0) {
+			setLigado(false);
+		}
+		else 
+			setLigado(true);
+	}
+	
+	public void desligar() {
+		setLigado(false);
+	}
+	
+	public void carregar() {
+		setporcentBateria(100);
+	}
+	
+	public void altVolume(int volume) {
+		if (isLigado()==true) {
+			if (volume == 1) {
+				if (getVolume()>=0 && getVolume()<=10) {
+					this.volume++;
+				} 
+			} else if (volume == 0) {
+				if (getVolume()>=0 && getVolume()<=10) {
+					this.volume--;
+				}
+			} else {
+				System.out.println("Opção invalida...");
+			}
+		}
+	}
+	
+	public void jogar() {
+		if (isLigado() == true) {
+			
+			System.out.println("~~ JOGO PAR OU IMPAR ~~~~");
+			System.out.println("Digite um numero: ");
+			int x = sc.nextInt();
+			
+			Random rand = new Random();
+			
+			int y = rand.nextInt(50);
+			
+			if (x%2==0 && y%2==0) {
+				System.out.println("Você venceu!!!!");
+			} else if (x%2!=0 && x%2!=0) {
+				System.out.println("Você venceu!!!!");
+			} else {
+				System.out.println("você perdeu, tente de novo...");
+			}
+			
+			this.porcentBateria--;
+			
+		}
+	}
+	
+	public void status() {
+		if (this.ligado == true) {
+			System.out.println("O celular está com "+getporcentBateria()+ "% de bateria");
+			if (getporcentBateria() < 10)
+				System.out.println("A bateria está fraca");
+			System.out.println("O volume está no nivel " + getVolume());
+		} else {
+			System.out.println("O telefone está desligado, ligue-o para ver o status");
+		}
+		
+	}
+}
