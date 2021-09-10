@@ -1,0 +1,91 @@
+package celular;
+
+import java.util.Scanner;
+
+public class Main {
+
+  public static void main(String[] args) {
+    int bateria;
+    String modelo;
+    int volume;
+    boolean ligar;
+    int op;
+
+    Celular cel = new Celular();
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("Informe o modelo do celular: ");
+    modelo = sc.nextLine();
+
+    System.out.println("Informe o volume do celular, de 0 a 10: ");
+    volume = sc.nextInt();
+
+    System.out.println("Informe o nivel da bateria, de 0 a 100: ");
+    bateria = sc.nextInt();
+
+    System.out.println("O celular está ligado? \n1 - sim\n2 - nao");
+    int temp = sc.nextInt();
+    boolean aux = true;
+    if (temp == 1) {
+      aux = true;
+    } else if (temp == 2) {
+      aux = false;
+    } else {
+      System.out.println("Opcao invalida");
+    }
+
+    cel = new Celular(modelo, bateria, aux, volume);
+
+    do {
+      System.out.println("0 - sair");
+      System.out.println("1 - recarregar");
+      System.out.println("2 - jogar");
+      System.out.println("3 - controlar volume");
+      System.out.println("4 - ligar");
+      System.out.println("5 - desligar");
+      System.out.println("6 - status do celular");
+
+      op = sc.nextInt();
+
+      switch (op) {
+        case 0:
+          System.out.println("Saindo...");
+          break;
+        case 1:
+          cel.carregar();
+          System.out.println("Bateria recarregada...");
+          break;
+        case 2:
+          cel.jogar();
+          break;
+        case 3:
+          if (cel.isLigado() == true) {
+            System.out.println("Digite 1 para aumentar o volume ou 0 para abaixar o volume");
+            int num = sc.nextInt();
+            cel.altVolume(num);
+          } else {
+            System.out.println("Celular desligado");
+          }
+          break;
+        case 4:
+          if (cel.isLigado() == true) {
+            System.out.println("celular ja ligado");
+          } else {
+            cel.ligar();
+          }
+          break;
+        case 5:
+          if (cel.isLigado() == false) {
+            System.out.println("celular ja desligado");
+          } else {
+            cel.desligar();
+          }
+          break;
+        case 6:
+          cel.status();
+          break;
+      }
+    } while (op != 0);
+  }
+
+}
